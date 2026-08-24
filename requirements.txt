@@ -1,0 +1,6 @@
+# Core - that's it, no LLM SDK, no pydantic
+pandas>=2.0
+openpyxl>=3.1        # required for .xlsx export
+
+# Optional - only needed if you have .msg files (not required for .eml/.mbox)
+extract-msg>=0.45
