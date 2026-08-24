@@ -1,32 +1,24 @@
 # Email Contact Extractor - No-LLM Edition
 
-Same goal as `email_contact_extractor.py` - a unique, deduplicated list of
-external business contacts from Outlook or Gmail archives - but the entire
-pipeline is pure Python. No API key, no network calls, no per-run cost.
+A unique, deduplicated list of
+external business contacts from Outlook or Gmail archives and the entire
+pipeline is pure Python.
 
 ## What's different from the LLM version
-
-| | LLM version | This version |
-|---|---|---|
-| Cost | Anthropic API usage (small, since only unique contacts + short snippets are sent) | $0 |
-| Name/company source | Header, then Claude cleans it up using the signature | Header (trusted as-is), falling back to a regex-matched name-shaped line in the signature when there's no header name at all |
-| Company detection | Claude reads the signature in context | Regex match for a company-suffix line (Inc/LLC/Ltd/GmbH/Group/...) in the signature; falls back to a domain-name guess |
-| "Is this actually a business contact?" | Claude judges and flags it | No judgment call is made - nothing is dropped on that basis. Use `--exclude-public-domains` for a blunter, rule-based version of the same idea |
-| Dependencies | pandas, openpyxl, pydantic, anthropic, (extract-msg) | pandas, openpyxl, (extract-msg) |
 
 ## Install
 
 ```bash
-pip install -r requirements_no_llm.txt
+pip install -r requirements.txt
 ```
 
-That's the whole setup - no API key needed.
+That's the whole setup.
 
 ## Usage
 
 ```bash
 # Gmail (Google Takeout .mbox export)
-python extract_contacts_no_llm.py \
+python extract_contacts.py \
     --mode gmail \
     --input-dir ./takeout_export \
     --internal-domains "mycompany.com,mycompany.co.uk" \
@@ -50,7 +42,7 @@ came from, which is the fastest way to judge how well the heuristics are
 doing on your particular archive before you trust the output as-is:
 
 ```bash
-python extract_contacts_no_llm.py --mode gmail --input-dir ./takeout_export \
+python extract_contacts.py --mode gmail --input-dir ./takeout_export \
     --internal-domains "mycompany.com" --include-evidence
 ```
 
@@ -66,7 +58,7 @@ python extract_contacts_no_llm.py --mode gmail --input-dir ./takeout_export \
 | `--include-evidence` | Add the signature snippet each guess was based on, for manual QA |
 | `--cache-file` / `--use-cache` | Save/reload the parsed candidate list as JSON, so a large archive isn't re-parsed on every rerun |
 
-Run `python extract_contacts_no_llm.py --help` for the full list.
+Run `python extract_contacts.py --help` for the full list.
 
 ## Accuracy: what to expect, honestly
 
