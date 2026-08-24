@@ -22,7 +22,7 @@ python extract_contacts.py \
     --self-emails "me@mycompany.com,myname@gmail.com"
 
 # Outlook (.eml or .msg export)
-python extract_contacts_no_llm.py \
+python extract_contacts.py \
     --mode outlook \
     --input-dir ./outlook_export \
     --internal-domains "mycompany.com"
