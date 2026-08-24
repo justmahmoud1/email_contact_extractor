@@ -1,10 +1,7 @@
-# Email Contact Extractor - No-LLM Edition
-
+# Email Contact Extractor
 A unique, deduplicated list of
 external business contacts from Outlook or Gmail archives and the entire
 pipeline is pure Python.
-
-## What's different from the LLM version
 
 ## Install
 
@@ -79,10 +76,7 @@ Company Inc." But it has no semantic understanding, so:
   a stricter (but blunter) cut.
 
 `--include-evidence` is there specifically so you can spot-check these
-cases quickly rather than trusting the output blind. If accuracy matters
-more than the API cost for your use case, `email_contact_extractor.py` (the
-LLM version) will do meaningfully better on messy, inconsistent signatures.
-
+cases quickly rather than trusting the output blind.
 ## Output
 
 `contacts.csv` and `contacts.xlsx` with columns `Full Name`,
